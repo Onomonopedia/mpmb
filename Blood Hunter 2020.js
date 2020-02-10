@@ -289,7 +289,7 @@ ClassList["blood hunter"] = {
 			description : desc([
 				"My speed increases by 5 ft and whenever I make a Str, Dex or Cos save I can add my Int modifier to the total"
 			]),
-			speed : "+5",
+			speed : {allModes: "+5"},
       addMod : [{type : "save", field : "Con", mod: "Int"}, {type : "save", field : "Dex", mod: "Int"}, {type : "save", field : "Str", mod: "Int"}]
 		},
     "brand of tethering" : {
