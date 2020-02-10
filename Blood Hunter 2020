@@ -108,7 +108,7 @@ ClassList["blood hunter"] = {
 			usages : levels.map(function (n) { return n < 6 ? 1 : n < 12 ? 2 : n < 16 ? 3 : 4; }),
 			recovery : "short rest",
 			extraname : "Blood Curse",
-			extrachoices : ["Blood Curse of the Anxious", "Blood Curse of Binding", "Blood Curse of Bloated Agony", "Blood Curse the Eyeless", "Blood Curse of the Fallen Puppet",  "Blood Curse of the Marked", "Blood Curse of the Muddled Mind"],
+			extrachoices : ["Blood Curse of the Anxious", "Blood Curse of Binding", "Blood Curse of Bloated Agony", "Blood Curse of the Eyeless", "Blood Curse of the Fallen Puppet",  "Blood Curse of the Marked", "Blood Curse of the Muddled Mind"],
       "blood curse of the anxious":{
         name : "Blood Curse of the Anxious",
         source: ["MM:BH", 3],
