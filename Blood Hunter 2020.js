@@ -269,7 +269,7 @@ ClassList["blood hunter"] = {
       description : desc([
         "Whenever I damage a creature with my Crimson Rite feature, I can brand a creature",
         "I always know the direction to the branded creature, and each time the the creature deals damage to me or a creature I can see within 5 ft of me the creature suffers psychic damage equal to my Int modifier",
-        "My brand lasts until I dismsiss it or apply it to another creature. It counts as a spell for the purposes of <i> dispel magic </i>, and the spell level is equal to half of my blood hunter level (max 9th level)"
+        "My brand lasts until I dismsiss it or apply it to another creature. It counts as a spell for the purposes of dispel magic, and the spell level is equal to half of my blood hunter level (max 9th level)"
       ]),
       usages : 1,
       recovery : "short rest",
@@ -290,7 +290,7 @@ ClassList["blood hunter"] = {
 				"My speed increases by 5 ft and whenever I make a Str, Dex or Cos save I can add my Int modifier to the total"
 			]),
 			speed : {allModes: "+5"},
-      addMod : [{type : "save", field : "Con", mod: "Int"}, {type : "save", field : "Dex", mod: "Int"}, {type : "save", field : "Str", mod: "Int"}]
+//       addMod : [{type : "save", field : "Con", mod: "Int", text: "I can add my Int mod to Con saves"}, {type : "save", field : "Dex", mod: "Int", text: "I can add my Int mod to Dex saves"}, {type : "save", field : "Str", mod: "Int", text: "I can add my Int mod to Str saves"}]
 		},
     "brand of tethering" : {
       name : "Brand of Tethering",
@@ -877,7 +877,7 @@ ClassSubList["blood hunter-order of the lycan"] = {
 				"As an action, I can transform into a Hybrid lycanthropy form",
 				"See the \"Notes\" page for the full rules of this Hybrid form at my current level"
 			]),
-			usages : ["", "", 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, "unlimited per", "unlimited per", "unlimited per"],
+			usages : ["", "", 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, 2, "", "", ""],
 			recovery : "short rest",
 			action : ["bonus action", " (start/end)"],
 			savetxt : { text : ["Adv. on Str saves in Hybrid form"] },
@@ -912,11 +912,6 @@ ClassSubList["blood hunter-order of the lycan"] = {
 				"I can now use my Hybrid Transformation feature twice, regaining all expended uses when I finish a short or long rest",
 				"In my Hybrid form, I gain the Lycan Regeneration feature"
 			]),
-			calcChanges : {
-				atkCalc : [
-					"if ((/predatory strike/i).test(WeaponName) || (isMeleeWeapon && (/\\bhybrid\\b/i).test(WeaponText))) { output.bHit += function(n) {return n < 3 ? 0 : n < 11 ? 1 : n < 18 ? 2 : 3;}; ",
-				]
-			}
 		},
 		"subclassfeature15" : {
 			name : "Brand of the Voracious",
@@ -983,14 +978,14 @@ UpdateHybridForm = function() {
 		if (lvl < 3) return "";
 		var PSdie = lvl >= 11 ? "d8" : "d6";
 		var theText = "Blood Hunter (Order of the Lycan) Hybrid form, at level " + lvl + ":\n   " + "As a bonus action, I can transform into a Hybrid lycanthropy form" + "\n   " + "This form lasts for " + (lvl < 18 ? "1 hour" : "indefinitely") + " or until I transform back as a bonus action" + "\n   " + "I can speak, use equipment, and wear armor in this form" + "\n   " + "I revert back to my normal form if I fall unconscious, drop to 0 HP, or die" + "\n   " + "While I am in this Hybrid form, I gain the following features:";
-		theText += "\n\u25C6 " + "Bloodlust (Order of the Lycan 3, MM:OotL 2)" + "\n   " + "I must save to keep control if I begin my turn with no more than half of my maximum HP" + "\n   " + "This save happens at the start of each of my turns" + (lvl < 15 ? ", if I have less than half of my max HP" : " and I have adv. on it") + "\n   " + "It is a Wisdom save DC (8 + 1/3 of my Blood Hunter level)" + "\n   " + "I automatically fail if I am under an effect that prevents concentrating (like Rage)" + "\n   " + "If failed, I must move to the nearest creature and take the Attack action on it" + "\n   " + "I can choose whether or not I use my Extra attack feature for this attack."+ "\n   " + "After this Attack action, I regain control and can continue my turn";
+		theText += "\n\u25C6 " + "Bloodlust (Order of the Lycan 3, MM:OotL 2)" + "\n   " + "I must save to keep control if I begin my turn with no more than half of my" + "\n   " + "maximum HP" + "\n   " + "This save happens at the start of each of my turns" + (lvl < 15 ? ", if I have less than half of my max HP" : " and I have adv. on it") + "\n   " + "It is a Wisdom save DC (8 + 1/3 of my Blood Hunter level)" + "\n   " + "I automatically fail if I am under an effect that prevents concentrating (like Rage)" + "\n   " + "If failed, I must move to the nearest creature and take the Attack action on it" + "\n   " + "I can choose whether or not I use my Extra attack feature for this attack."+ "\n   " + "After this Attack action, I regain control and can continue my turn";
 		theText += "\n\u25C6 " + "Cursed Weakness (Order of the Lycan 3, MM:OotL 2)" + "\n   " + "I have vulnerability to damage from silvered weapons";
-		theText += "\n\u25C6 " + "Feral Might (Order of the Lycan 3, MM:OotL 2)" + "\n   " + "I gain" + (lvl < 11 ? "+1" : lvl < 18 ? "+2" : "+3") + "bonus melee damage " + "\n   " + "I have advantage on Strength checks and saving throws";
+		theText += "\n\u25C6 " + "Feral Might (Order of the Lycan 3, MM:OotL 2)" + "\n   " + "I gain" + (lvl < 11 ? "+1" : lvl < 18 ? "+2" : "+3") + " bonus melee damage " + "\n   " + "I have advantage on Strength checks and saving throws";
 		theText += "\n\u25C6 " + "Predatory Strikes (Order of the Lycan 3, MM:OotL 2)" + "\n   " + "My unarmed strikes are more powerful and can be imbued with a Crimson Rite" + "\n   " + "These predatory strikes do " + PSdie + " damage and I can use Dex or Str with them" + "\n   " + "When I use them during an Attack action, I can make another as a bonus action";
 		theText += "\n\u25C6 " + "Resilient Hide (Order of the Lycan 3, MM:OotL 2)" + "\n   " + "I have resistance to bludgeoning, piercing, and slashing damage" + "\n   " + "Attacks that are magical or from silvered weapons bypass this resistance" + "\n   " + "I gain +1 bonus to AC while I am not wearing heavy armor";
-		if (lvl >= 7) theText += "\n\u25C6 " + "Improved Predatory Strikes (Order of the Lycan 7, MM:OotL 2)" + "\n   " + "I gain a" + (lvl < 11 ? "+1" : lvl < 18 ? "+2" : "+3") + "bonus to my attack rolls made with my unarmed strikes" + "\n   " + "If I have an active Crimson Rite, my predatory strikes are considered magical";
+		if (lvl >= 7) theText += "\n\u25C6 " + "Improved Predatory Strikes (Order of the Lycan 7, MM:OotL 2)" + "\n   " + "I gain a" + (lvl < 11 ? "+1" : lvl < 18 ? "+2" : "+3") + " bonus to my attack rolls made with my unarmed strikes" + "\n   " + "If I have an active Crimson Rite, my predatory strikes are considered magical";
 		if (lvl >= 11) {
-			theText += "\n\u25C6 " + "Lycan Regeneration (Order of the Lycan 11, MM:OotL 2)" + "\n   " + "If I have less than half my max HP at the start of my turn, I heal myself" + "\n   " + "I regain 1 + Constitution modifier (min 1) HP; This works as long as I have at least 1 HP and no more than half my max HP left";
+			theText += "\n\u25C6 " + "Lycan Regeneration (Order of the Lycan 11, MM:OotL 2)" + "\n   " + "If I have less than half my max HP at the start of my turn, I heal myself" + "\n   " + "I regain 1 + Constitution modifier (min 1) HP; This works as long as I have at" + "\n   " + "least 1 HP and no more than half my max HP left";
 		return theText;
     }
 	};
